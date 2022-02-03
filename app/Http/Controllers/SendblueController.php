@@ -5,12 +5,27 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use GuzzleHttp\Client;
 
+use App\Models\IMessageLog;
+
 class SendblueController extends Controller
 {
     public function apiResponse(Request $request){
         if($request){
-            // dd($request);
-            return response()->json($request, 200);
+            $log                        = new IMessageLog;
+            $log->transaction_status    = $request->status == 'ERROR' ? 'error' : 'success';
+            $log->from                  = $request->from_number;
+            $log->to                    = $request->to_number;
+            $log->message_status        = $request->status;
+            $log->ref_no                = $request->message_handle;
+
+            if($log->transaction_status == 'error'){
+                $log->error_code        = $request->error_code;
+                $log->error_message     = $request->error_message;
+            }
+
+            $log->remark                = json_encode($request);
+            $log->save();
+
         }
     }
 
@@ -25,7 +40,7 @@ class SendblueController extends Controller
             ]
         ]);
 
-        $phone_number = ['0967314939', '0931369378'];
+        $phone_number = ['0967314939'];
 
         $phone_number_converted = [];
 
@@ -42,7 +57,8 @@ class SendblueController extends Controller
                         '_token' => '18LbaWmJbE5nml1vu7kTW4UC358iwsMMbx0f88OQ',
                         'number' => $phone_number_converted[$j],
                         'content' => $phone_number_converted[$j] . ' : test mark api from laravel',
-                        'send_style' => 'balloons',
+                        'media_url' => 'https://markapp-s3.s3.ap-southeast-1.amazonaws.com/test-img/4990.png',
+                        'send_style' => 'gentle',
                         'statusCallback' => config('app.sendblue_api_webhook')
                     ]
                 ]);
