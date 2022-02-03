@@ -6,7 +6,7 @@
         SENDBLUE_API_SECRET<br>
         SENDBLUE_API_WEBHOOK<br>
         SENDBLUE_API_WEBHOOK_SECRET<br>
-        SENDBLUE_API_ENDPOINT
+        SENDBLUE_API_ENDPOINT=https://api.sendblue.co/api/
     </li>
     <li>Run : composer install</li>
     <li>Run : npm install</li>
