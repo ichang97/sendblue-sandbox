@@ -40,7 +40,7 @@ class SendblueController extends Controller
             ]
         ]);
 
-        $phone_number = ['0967314939'];
+        $phone_number = ['0967314939', '0931369378', '0610258476'];
 
         $phone_number_converted = [];
 
@@ -57,7 +57,7 @@ class SendblueController extends Controller
                         '_token' => '18LbaWmJbE5nml1vu7kTW4UC358iwsMMbx0f88OQ',
                         'number' => $phone_number_converted[$j],
                         'content' => $phone_number_converted[$j] . ' : test mark api from laravel',
-                        'media_url' => 'https://markapp-s3.s3.ap-southeast-1.amazonaws.com/test-img/4990.png',
+                        'media_url' => 'https://markapp-s3.s3.ap-southeast-1.amazonaws.com/images/1637223763.jpeg',
                         'send_style' => 'gentle',
                         'statusCallback' => config('app.sendblue_api_webhook')
                     ]
