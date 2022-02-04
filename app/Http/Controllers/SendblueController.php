@@ -45,7 +45,7 @@ class SendblueController extends Controller
         $phone_number_converted = [];
 
         for($i = 0; $i < count($phone_number); $i++){
-            $temp_phone_number = str_replace('0', '+66', $phone_number[$i]);
+            $temp_phone_number = '+66' . ltrim($phone_number[$i], '0');
             array_push($phone_number_converted, $temp_phone_number);
         }
 
